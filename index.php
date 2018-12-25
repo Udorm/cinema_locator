@@ -90,6 +90,10 @@ if($_POST){
         $latitude = $data_arr[0];
         $longitude = $data_arr[1];
         $formatted_address = $data_arr[2];
+
+        echo($latitude . "|");
+        echo($longitude);
+        echo($formatted_address);
                      
     ?>
  
