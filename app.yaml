@@ -10,4 +10,4 @@ handlers:
 
 # Serve php scripts.
 - url: /
-  script: index.php
+  script: home.php
