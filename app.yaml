@@ -9,5 +9,5 @@ handlers:
   application_readable: true
 
 # Serve php scripts.
-- url: /index(.+\.php)$
-  script: \1
+- url: /
+  script: index.php
