@@ -1,29 +1,32 @@
-<!DOCTYPE <!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
+  
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Home - Cinema Locator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+ 
+    <title>Live Demo of Google Maps Geocoding Example with PHP</title>
+ 
+    <style>
+    /* some custom css */
+    #gmap_canvas{
+        width:100%;
+        height:30em;
+    }
+    </style>
+ 
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <h1>Home</h1>
-        </div>
-
-        <div id='address-examples'>
-            <div>Address examples:</div>
-            <div>1. G/F Makati Cinema Square, Pasong Tamo, Makati City</div>
-            <div>2. 80 E.Rodriguez Jr. Ave. Libis Quezon City</div>
-        </div>
-
-        <form action="" method="post">
-            <input type='text' name='address' placeholder='Enter any address here' />
-            <input type='submit' value='Geocode!' />
-        </form>
-
+<div id='address-examples'>
+    <div>Address examples:</div>
+    <div>1. G/F Makati Cinema Square, Pasong Tamo, Makati City</div>
+    <div>2. 80 E.Rodriguez Jr. Ave. Libis Quezon City</div>
+</div>
+<form action="" method="post">
+    <input type='text' name='address' placeholder='Enter any address here' />
+    <input type='submit' value='Geocode!' />
+</form>
 <?php 
 // function to geocode address, it will return false if unable to geocode address
 function geocode($address){
@@ -32,7 +35,7 @@ function geocode($address){
     $address = urlencode($address);
      
     // google map geocode api url
-    $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$address}&key=AIzaSyAJ9lSmHWoa9LelSQ3KSwfFY_srkZ4OpYM";
+    $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$address}&key=AIzaSyBkTndwMBrpCv9TQg1EUQbghII3jtVShL4";
  
     // get the json response
     $resp_json = file_get_contents($url);
@@ -65,7 +68,8 @@ function geocode($address){
              
         }else{
             return false;
-        }  
+        }
+         
     }
  
     else{
@@ -73,8 +77,8 @@ function geocode($address){
         return false;
     }
 }
-
-//Get Request from client
+?>
+<?php
 if($_POST){
  
     // get latitude, longitude and formatted address
@@ -87,14 +91,14 @@ if($_POST){
         $longitude = $data_arr[1];
         $formatted_address = $data_arr[2];
                      
-?>
+    ?>
  
     <!-- google map will be shown here -->
     <div id="gmap_canvas">Loading map...</div>
     <div id='map-label'>Map shows approximate location.</div>
  
     <!-- JavaScript to show google map -->
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBfkX-mOha5-uL6SJ3rJCagkIKMm4732M4"></script>   
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBkTndwMBrpCv9TQg1EUQbghII3jtVShL4"></script>   
     <script type="text/javascript">
         function init_map() {
             var myOptions = {
@@ -126,9 +130,5 @@ if($_POST){
     }
 }
 ?>
-
-    </div>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
