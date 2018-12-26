@@ -18,12 +18,12 @@
 <?php
 if($_POST){
  
-    // get latitude, longitude and formatted address
-    
+    //Read API Key
+    $f = fopen("api_key.txt", "r") or die("Unable to open file!");
+    $api_key = fread($f, filesize("api_key.txt"));
  
     // if able to geocode the address
     if(true){
-         
         $latitude = $_POST['lat'];
         $longitude = $_POST['lng'];
         $formatted_address = $_POST['formated_address'];
@@ -35,7 +35,7 @@ if($_POST){
     <div id='map-label'>Map shows approximate location.</div>
  
     <!-- JavaScript to show google map -->
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBkTndwMBrpCv9TQg1EUQbghII3jtVShL4"></script>   
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=<?php echo $api_key; ?>"></script>   
     <script type="text/javascript">
         function init_map() {
             var myOptions = {

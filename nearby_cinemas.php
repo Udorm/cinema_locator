@@ -28,7 +28,7 @@
     </nav>       
     
     <div class="container" style="margin-top:30px;">
-        <form action="" method="post">
+        <form action="/CinemaLocator/home.php" method="post">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <select name="searchLocation" class="form-control">
@@ -63,15 +63,16 @@
 $f = fopen("api_key.txt", "r") or die("Unable to open file!");
 $api_key = fread($f, filesize("api_key.txt"));
 
-function searchCinemas($query, $key, $next_page_token=""){
+function searchCinemas($lat, $lng, $key, $next_page_token=""){
     // url encode the query
     $query = urlencode($query);
 
     // search places api url
     if ($next_page_token == ""){
-        $url = "https://maps.googleapis.com/maps/api/place/textsearch/json?type=movie_theater&query={$query}&key={$key}";
+        //$url = "https://maps.googleapis.com/maps/api/place/textsearch/json?type=movie_theater&query={$query}&key={$key}";
+        $url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={$lat},{$lng}&radius=10000&type=movie_theater&key={$key}";
     }else{
-        $url = "https://maps.googleapis.com/maps/api/place/textsearch/json?type=movie_theater&query={$query}&key={$key}&pagetoken={$next_page_token}";
+        //$url = "https://maps.googleapis.com/maps/api/place/textsearch/json?type=movie_theater&query={$query}&key={$key}&pagetoken={$next_page_token}";
     }
     
 
@@ -97,15 +98,16 @@ function searchCinemas($query, $key, $next_page_token=""){
 ?>
 <?php
 if($_POST){
-    $q = $_POST['queryString'] . " in " . $_POST['searchLocation'];
+    $lat = $_POST['user_lat'];
+    $lng = $_POST['user_lng'];
 ?>
     <div class="container">
         <div class="row">
-            <div class="col-md-12"><h5>Result of "<?php echo($q); ?>"</h5></div>
+            <div class="col-md-12"><h5>The cinemas near you</h5></div>
         </div>
         <div class="row"><div class="col-md-12"><div class="card-columns">
             <?php 
-            $cinemas = searchCinemas($q, $api_key);
+            $cinemas = searchCinemas($lat, $lng, $api_key);
             for($i = 0; $i < sizeof($cinemas[results]); $i++){
                 //echo($cinemas[results][$i][formatted_address]);
             ?>
@@ -114,7 +116,7 @@ if($_POST){
                     <div class="card-header"><?php echo(isset($cinemas[results][$i][opening_hours][open_now])?($cinemas[results][$i][opening_hours][open_now]==true?"Open":"Closed"):"N/A"); ?></div>
                     <div class="card-body">
                         <h5 class="card-title"><?php echo(isset($cinemas[results][$i][name])?$cinemas[results][$i][name]:"N/A"); ?></h5>
-                        <p class="card-text"><?php echo(isset($cinemas[results][$i][formatted_address])?$cinemas[results][$i][formatted_address]:"N/A"); ?></p>
+                        <p class="card-text"><?php echo(isset($cinemas[results][$i][vicinity])?$cinemas[results][$i][vicinity]:"N/A"); ?></p>
                         <form action="/CinemaLocator/viewMap.php" method="post" target="_blank">
                             <div class="form-group">
                             <input hidden type="text" name="lat" value="<?php echo($cinemas[results][$i][geometry][location][lat]); ?>" />
@@ -135,33 +137,36 @@ if($_POST){
 <?php
 }else{ ?>
     <div class="container"><div class="row"><div class="col-md-12">
-        <h5>Search results will be shown here!</h5>
+        <h5>Loading...</h5>
     </div></div></div>
-<?php
-}
+<?php }
 ?>
 
-<p hidden id="user_lat">k</p>
-<p hidden id="user_lng">k<p>
+
+<form action="" method="post" name="myform" hidden>
+    <input type="text" id="user_lat" name="user_lat" value=""/>
+    <input type="text" id="user_lng" name="user_lng" value=""/>
+    <input type="submit" id="searchNearbyCinema" name="searchNearbyCinema" value="Search Nearby Cinema" />
+</form>
 <script>
         var lat = document.getElementById("user_lat");
-        var lng = document.getElementById("user_lng")
+        var lng = document.getElementById("user_lng");
         function getlocation() {
-                if (navigator.geolocation) { 
-                    navigator.geolocation.getCurrentPosition(visitorLocation);
-                } else { 
-                    $('#location').html('This browser does not support Geolocation Service.');
-                }
+            if (navigator.geolocation) { 
+                navigator.geolocation.getCurrentPosition(visitorLocation);
+            } else { 
+                $('#location').html('This browser does not support Geolocation Service.');
             }
-            function visitorLocation(position) {
-                var lati = position.coords.latitude;
-                var long = position.coords.longitude;
-                console.log(lati);
-                console.log(long);
-                lat.innerHTML = lati;
-                lng.innerHTML = long;
-            }
-            getlocation()
+        }
+        function visitorLocation(position) {
+            var lati = position.coords.latitude;
+            var long = position.coords.longitude;
+            console.log(lati);
+            console.log(long);
+            document.getElementById("user_lat").value = lati;
+            document.getElementById("user_lng").value = long;
+        }
+        getlocation()
     </script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
