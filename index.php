@@ -11,14 +11,14 @@
 <body>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/CinemaLocator/">Movie Locator</a>
+        <a class="navbar-brand" href="/">Movie Locator</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/CinemaLocator/send_current_location.php">Nearby Cinema</a>
+                    <a class="nav-link" href="/send_current_location.php">Nearby Cinema</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About Us</a>
@@ -115,7 +115,7 @@ if($_POST){
                     <div class="card-body">
                         <h5 class="card-title"><?php echo(isset($cinemas[results][$i][name])?$cinemas[results][$i][name]:"N/A"); ?></h5>
                         <p class="card-text"><?php echo(isset($cinemas[results][$i][formatted_address])?$cinemas[results][$i][formatted_address]:"N/A"); ?></p>
-                        <form action="/CinemaLocator/viewMap.php" method="post" target="_blank">
+                        <form action="/viewMap.php" method="post" target="_blank">
                             <div class="form-group">
                             <input hidden type="text" name="lat" value="<?php echo($cinemas[results][$i][geometry][location][lat]); ?>" />
                             <input hidden type="text" name="lng" value="<?php echo($cinemas[results][$i][geometry][location][lng]); ?>" />

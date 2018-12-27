@@ -10,4 +10,4 @@ handlers:
 
 # Serve php scripts.
 - url: /
-  script: home.php
+  script: send_current_location.php

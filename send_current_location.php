@@ -11,14 +11,14 @@
 <body>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Movie Locator</a>
+        <a class="navbar-brand" href="/">Movie Locator</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nearby Cinema</a>
+                    <a class="nav-link" href="/send_current_location.php">Nearby Cinema</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About Us</a>
@@ -28,7 +28,7 @@
     </nav>       
     
     <div class="container" style="margin-top:30px;">
-        <form action="/CinemaLocator/index.php" method="post">
+        <form action="/index.php" method="post">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <select name="searchLocation" class="form-control">
@@ -61,7 +61,7 @@
         <h5>Loading nearby cinemas...</h5>
     </div></div></div>
 
-    <form action="/CinemaLocator/nearby_cinemas.php" method="get" name="myform" hidden>
+    <form action="/nearby_cinemas.php" method="get" name="myform" hidden>
         <input type="text" id="user_lat" name="user_lat" value=""/>
         <input type="text" id="user_lng" name="user_lng" value=""/>
         <input type="submit" id="searchNearbyCinema" name="searchNearbyCinema" value="Search Nearby Cinema" />
