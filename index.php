@@ -102,7 +102,11 @@ if($_POST){
     <div id='map-label'>Map shows approximate location.</div>
  
     <!-- JavaScript to show google map -->
+<<<<<<< HEAD
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBfkX-mOha5-uL6SJ3rJCagkIKMm4732M4"></script>   
+=======
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBkTndwMBrpCv9TQg1EUQbghII3jtVShL4"></script>   
+>>>>>>> 211d6e34e24fccdc73e08cf0bab84846dd87ae08
     <script type="text/javascript">
         function init_map() {
             var myOptions = {
