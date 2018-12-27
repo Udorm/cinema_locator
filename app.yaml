@@ -1,13 +1,23 @@
 runtime: php55
 api_version: 1
-
 handlers:
 # Serve images as static resources.
 - url: /(.+\.(gif|png|jpg))$
   static_files: \1
   upload: .+\.(gif|png|jpg)$
   application_readable: true
-
 # Serve php scripts.
-- url: /
+- url: /send_current_location.php
   script: send_current_location.php
+
+- url: /nearby_cinemas.php
+  script: nearby_cinemas.php
+
+- url: /viewMap.php
+  script: viewMap.php
+
+- url: /index.php
+  script: index.php
+  
+- url: /
+  script: index.php
